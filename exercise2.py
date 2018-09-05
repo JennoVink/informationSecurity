@@ -4,11 +4,8 @@ import sys
 import argparse as ap
 from collections import deque
 
-# Wrong mapping as provied by the lecturer.
+# Mapping as provied by the lecturer.
 mapping = 'zyxwvtsrqpnmlkjhgfdcbuoiea'
-
-# My own mapping:
-mapping = 'zutsyrqpxonmlkwjihgfvedcba'
 
 nonLettersAsIs = False
 decryptArg = -1
@@ -56,7 +53,10 @@ print mapping
 
 letters = {}
 for i in range(len(mapping)):
-    letters[list(string.ascii_lowercase)[i]] = mapping[i]
+    if decryptArg == 1:
+        letters[mapping[i]] = list(string.ascii_lowercase)[i]
+    else:
+        letters[list(string.ascii_lowercase)[i]] = mapping[i]
 
 def decrypt(text, letters):
     global nonLetterAsIs
@@ -85,7 +85,6 @@ if manualInput:
     file = sys.argv[-2]
 print file
 
-print decryptArg
 if decryptArg == 1:
     print '---------- Decrypted: ----------'
 else:
