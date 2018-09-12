@@ -15,8 +15,6 @@ if '-o' in str(sys.argv):
 if '-d' in str(sys.argv):
     decryptArg = 1
 
-shifting = False
-
 ###
 # Method that returns a mapping from an int or string.
 # e.g. input 1 gives bcdefghijklmnopqrstuvwxyza
@@ -26,10 +24,8 @@ def shiftToMapping(arg):
     try:
         shift = int(arg)
         if shift >= 1 and shift < 26:
-            shifting = True
-
             mapping = deque(list(string.ascii_lowercase))
-            mapping.rotate(shift * decryptArg)
+            mapping.rotate(-shift)
             return ''.join(mapping)
         else:
             print "The shift has to be >= 1 or < 26."
@@ -51,9 +47,6 @@ for i in range(len(mapping)):
     else:
         letters[list(string.ascii_lowercase)[i]] = mapping[i]
 
-if decryptArg == -1 and shifting:
-    letters = {v: k for k, v in letters.items()}
-
 print 'mapping: '
 print mapping
 
@@ -72,7 +65,6 @@ def getEncryptedText():
     with open('2018.enc.txt', 'r') as content_file:
         content = content_file.read()
     return content
-
 
 file = getEncryptedText()
 

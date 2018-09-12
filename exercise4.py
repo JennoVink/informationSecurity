@@ -92,21 +92,34 @@ print 'So that makes a keylength of ' + str(bestKeylength) + ' the most plausibl
 frequencyTable = getFrequencyTable(file, 9)
 
 key = ''
-for letterIndex in frequencyTable:
-    mostFreqChar = sorted(frequencyTable[letterIndex].items(), key=operator.itemgetter(1), reverse=True)[0][0]
-    index = string.ascii_lowercase.index(mostFreqChar)
-    indexOfE = string.ascii_lowercase.index('e')
-    shifting = index - indexOfE
-    # To get the key:
-    key += string.ascii_lowercase[shifting]
+alts = {}
+for i in range(0, 10):
+    alts[i] = {}
+    for j in range(0, 4):
+        alts[i][j] = ''
 
-    print mostFreqChar + ' is the most frequent char at pos ' + str(letterIndex) + ', (shifting = ' + str(shifting) + ') ==> keychar = \t' + string.ascii_lowercase[shifting]
+for letterIndex in frequencyTable:
+    mostFreqChar = sorted(frequencyTable[letterIndex].items(), key=operator.itemgetter(1), reverse=True)
+    for i in range(0, 4):
+        print string.ascii_lowercase.index(mostFreqChar[i][0])
+        index = string.ascii_lowercase.index(mostFreqChar[i][0])
+        indexOfE = string.ascii_lowercase.index('e')
+        shifting = index - indexOfE
+        # To get the key:
+        alts[letterIndex][i] += string.ascii_lowercase[shifting]
+
+    #print mostFreqChar + ' is the most frequent char at pos ' + str(letterIndex) + ', (shifting = ' + str(shifting) + ') ==> keychar = \t' + string.ascii_lowercase[shifting]
 
 print 'Found the key! It must be "' + str(key) + '". Now decrypting the text:'
 
-decrypted = decrypt(file, key)
-print decrypted
-print '---------------------'
-load()
-segment = segment(decrypted)
-print " ".join(str(x) for x in segment)
+for letterIndex in range(0, 9):
+    print '----------'
+    for alternative in range(0, 3):
+        print alts[letterIndex][alternative]
+
+# decrypted = decrypt(file, key)
+# print decrypted
+# print '---------------------'
+# load()
+# segment = segment(decrypted)
+# print " ".join(str(x) for x in segment)
