@@ -1,7 +1,4 @@
-import urllib2
 import string
-import sys
-import argparse as ap
 from collections import deque
 from wordsegment import load, segment
 
@@ -14,7 +11,7 @@ mapping = ''
 def shiftToMapping(arg):
     shift = 0
     shift = int(arg)
-    if(shift >= 1 and shift < 26):
+    if shift >= 1 and shift < 26:
         mapping = deque(list(string.ascii_lowercase))
         mapping.rotate(shift)
         return ''.join(mapping)
@@ -33,11 +30,10 @@ def decrypt(text, shift):
     mapping = shiftToMapping(shift)
     global letters
     letters = createLetters(mapping)
-    global nonLetterAsIs
     decryptedText = ''
     for c in text:
         if c.lower() in letters:
-            decryptedText += letters[c.lower()].upper() if c.isupper() and nonLettersAsIs else letters[c.lower()].lower()
+            decryptedText += letters[c.lower()].lower()
         else:
             decryptedText += c
     return decryptedText

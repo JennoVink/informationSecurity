@@ -1,4 +1,3 @@
-import urllib2
 import string
 import sys
 from collections import deque
@@ -50,6 +49,10 @@ for i in range(len(mapping)):
     else:
         letters[list(string.ascii_lowercase)[i]] = mapping[i]
 
+if decryptArg == -1:
+    letters = {v: k for k, v in letters.items()}
+
+print letters
 
 def decrypt(text, letters):
     global nonLetterAsIs
@@ -68,7 +71,9 @@ def getEncryptedText():
     return content
 
 
-file = getEncryptedText()
+#file = getEncryptedText()
+file = "govmywodydromyebcoklyedsxpybwkdsyxcomebsdidrscmyebcoscklyedcomebsxqsxpybwkdsyxsxdrscmyxdohdgodrsxupybohkwzvoklyedrygdyzbofoxddroexkedrybsjonboknsxqypsxpybwkdsyxybklyedrygdyzbofoxddroexkedrybsjonwynspsmkdsyxypsxpybwkdsyxwkxioxmbizdsyxwodryncohscdcywokvboknidryeckxnciokbcyvnsxsdskvvigovvpymecyxcswzvowodryncdyoxmbizdsxpybwkdsyxpyvvygsxqdrscgovvecomrkbkmdobscdsmfkveocsnoxdspisxqsxpybwkdsyxwkusxqsdnsppsmevddywynspisxpybwkdsyxexxydspsonvkdobsxdrscmyebcogovvsxdbynemozobcyxkvoxmbizdsyxkxngovvcdenidyzsmcvsuoleppobyfobpvygohzvysdckxncmbycccsdocmbszdsxqsryzoiyevvoxtyidrscmyebcoklyedsxpybwkdsyxcomebsdi"
+
 print '---------- Original Input: ----------'
 print file
 
