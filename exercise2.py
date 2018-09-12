@@ -15,14 +15,19 @@ if '-o' in str(sys.argv):
 if '-d' in str(sys.argv):
     decryptArg = 1
 
+shifting = False
+
 ###
 # Method that returns a mapping from an int or string.
 # e.g. input 1 gives bcdefghijklmnopqrstuvwxyza
 ###
 def shiftToMapping(arg):
+    global shifting
     try:
         shift = int(arg)
         if shift >= 1 and shift < 26:
+            shifting = True
+
             mapping = deque(list(string.ascii_lowercase))
             mapping.rotate(shift * decryptArg)
             return ''.join(mapping)
@@ -39,9 +44,6 @@ def shiftToMapping(arg):
 
 mapping = shiftToMapping(sys.argv[-1])
 
-print 'mapping: '
-print mapping
-
 letters = {}
 for i in range(len(mapping)):
     if decryptArg == 1:
@@ -49,10 +51,11 @@ for i in range(len(mapping)):
     else:
         letters[list(string.ascii_lowercase)[i]] = mapping[i]
 
-if decryptArg == -1:
+if decryptArg == -1 and shifting:
     letters = {v: k for k, v in letters.items()}
 
-print letters
+print 'mapping: '
+print mapping
 
 def decrypt(text, letters):
     global nonLetterAsIs
@@ -71,8 +74,7 @@ def getEncryptedText():
     return content
 
 
-#file = getEncryptedText()
-file = "govmywodydromyebcoklyedsxpybwkdsyxcomebsdidrscmyebcoscklyedcomebsxqsxpybwkdsyxsxdrscmyxdohdgodrsxupybohkwzvoklyedrygdyzbofoxddroexkedrybsjonboknsxqypsxpybwkdsyxybklyedrygdyzbofoxddroexkedrybsjonwynspsmkdsyxypsxpybwkdsyxwkxioxmbizdsyxwodryncohscdcywokvboknidryeckxnciokbcyvnsxsdskvvigovvpymecyxcswzvowodryncdyoxmbizdsxpybwkdsyxpyvvygsxqdrscgovvecomrkbkmdobscdsmfkveocsnoxdspisxqsxpybwkdsyxwkusxqsdnsppsmevddywynspisxpybwkdsyxexxydspsonvkdobsxdrscmyebcogovvsxdbynemozobcyxkvoxmbizdsyxkxngovvcdenidyzsmcvsuoleppobyfobpvygohzvysdckxncmbycccsdocmbszdsxqsryzoiyevvoxtyidrscmyebcoklyedsxpybwkdsyxcomebsdi"
+file = getEncryptedText()
 
 print '---------- Original Input: ----------'
 print file
