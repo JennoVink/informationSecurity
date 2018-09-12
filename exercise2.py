@@ -7,7 +7,6 @@ mapping = ''
 
 nonLettersAsIs = False
 decryptArg = -1
-manualInput = False
 
 # -o option
 if '-o' in str(sys.argv):
@@ -16,10 +15,6 @@ if '-o' in str(sys.argv):
 # -d option
 if '-d' in str(sys.argv):
     decryptArg = 1
-
-# -i option is extra, for manual custom input.
-if '-i' in str(sys.argv):
-    manualInput = True
 
 ###
 # Method that returns a mapping from an int or string.
@@ -74,8 +69,6 @@ def getEncryptedText():
 
 
 file = getEncryptedText()
-if manualInput:
-    file = sys.argv[-2]
 print '---------- Original Input: ----------'
 print file
 
