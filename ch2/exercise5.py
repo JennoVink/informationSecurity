@@ -24,8 +24,8 @@ rel_path = "fileToEncrypt.txt"
 abs_file_path = os.path.join(script_dir, rel_path)
 file = open(abs_file_path, 'r')
 
-feistelHash = hashlib.sha256(b'Feistel')
-KEY = feistelHash.hexdigest() + hashlib.sha256(feistelHash.hexdigest()).hexdigest()
+feistelHash = hashlib.sha256(b'Feistel').hexdigest()
+KEY = feistelHash + hashlib.sha256(feistelHash).hexdigest()
 print KEY
 
 ROUNDS = 16
@@ -42,7 +42,7 @@ def getBlockparts():
 ##
 # Method that extracts the roundkey from a global key variable, depending on the roundNumber.
 def getRoundKey(roundNumer):
-    return ('0x' + [KEY[i:i + 2] for i in range(0, len(KEY), 2)][roundNumer]).decode("hex")
+    return [KEY[i:i + BLOCK_SIZE].decode('HEX') for i in range(0, len(KEY), BLOCK_SIZE)][roundNumer]
 
 ##
 # As a convention, the roundfunction with two params are implemented so it can be changed later.
