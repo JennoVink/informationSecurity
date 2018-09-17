@@ -42,7 +42,7 @@ def getBlockparts():
 ##
 # Method that extracts the roundkey from a global key variable, depending on the roundNumber.
 def getRoundKey(roundNumer):
-    return '0x' + [KEY[i:i + 2] for i in range(0, len(KEY), 2)][roundNumer]
+    return ('0x' + [KEY[i:i + 2] for i in range(0, len(KEY), 2)][roundNumer]).decode("hex")
 
 ##
 # As a convention, the roundfunction with two params are implemented so it can be changed later.
