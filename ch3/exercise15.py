@@ -1,26 +1,17 @@
-def multiplicative_inverse(e, phi):
-    d = 0
-    x1 = 0
-    x2 = 1
-    y1 = 1
-    temp_phi = phi
+def egcd(a, b):
+    if a == 0:
+        return b, 0, 1
+    else:
+        g, y, x = egcd(b % a, a)
+        return g, x - (b // a) * y, y
 
-    while e > 0:
-        temp1 = temp_phi / e
-        temp2 = temp_phi - temp1 * e
-        temp_phi = e
-        e = temp2
 
-        x = x2 - temp1 * x1
-        y = d - temp1 * y1
-
-        x2 = x1
-        x1 = x
-        d = y1
-        y1 = y
-
-    if temp_phi == 1:
-        return d + phi
+def modinv(a, m):
+    g, x, y = egcd(a, m)
+    if g != 1:
+        raise Exception('modular inverse does not exist')
+    else:
+        return x % m
 
 
 def generate_keypair(p=31, q=41):
@@ -32,14 +23,14 @@ def generate_keypair(p=31, q=41):
     phi = (p - 1) * (q - 1)
 
     # Private decryption key (d)
-    d = multiplicative_inverse(e, phi)
+    d = modinv(e, phi)
 
     return (N, e), (N, d)
 
 
 (N, e), (N, d) = generate_keypair()
-print "Public key is:  " + str(N) + " " + str(e)
-print "Private key is: " + str(d)
+print("Public key is:\t\t" + str(N) + " " + str(e))
+print("Private key is:\t\t" + str(d))
 
 
 def encrypt(public_key, k):
@@ -49,7 +40,7 @@ def encrypt(public_key, k):
 
 
 encrypted = encrypt((N, e), 42)
-print encrypted
+print("Encrypted is:\t\t" + str(encrypted))
 
 
 def decrypt(private_key, c):
@@ -59,4 +50,4 @@ def decrypt(private_key, c):
 
 
 decrypted = decrypt((N, d), encrypted)
-print decrypted
+print("Decrypted is:\t\t" + str(decrypted))

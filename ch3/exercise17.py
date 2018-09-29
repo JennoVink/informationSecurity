@@ -33,3 +33,18 @@
 # write it like this: '(X,Y)' (no blanks, the quotes are not part of the representation, no leading zeros).
 #
 # Submit the final shared point as answer to this exercise.
+
+# Example values from slides
+# a         11
+# b         19
+# N         167
+# xy        (2, 7)
+# m         15
+# xy_m      (102, 88)
+
+# Values for exercise
+# a         -3
+# b         7
+# N         233
+# xy        (2, 3)
+# m         18
